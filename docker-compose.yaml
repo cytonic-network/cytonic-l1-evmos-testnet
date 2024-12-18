@@ -1,0 +1,47 @@
+x-generic-node: &generic-node
+  image: tharsishq/evmos:v20.0.0
+  volumes:
+    - ./data/chain:/data
+    - ./entrypoints/node.sh:/entrypoint.sh
+    - ./genesis.json:/genesis.json
+  entrypoint: /entrypoint.sh
+
+services:
+  node-a:
+    <<: *generic-node
+    networks:
+      custom:
+        ipv4_address: 10.5.0.2
+    command: --home /data/node-a start --chain-id cytonic_52225-1
+  node-b:
+    <<: *generic-node
+    networks:
+      custom:
+        ipv4_address: 10.5.0.3
+    command: --home /data/node-b start --chain-id cytonic_52225-1
+    depends_on:
+      - node-a
+  node-c:
+    <<: *generic-node
+    networks:
+      custom:
+        ipv4_address: 10.5.0.4
+    command: --home /data/node-c start --chain-id cytonic_52225-1
+    depends_on:
+      - node-a
+  node-d:
+    <<: *generic-node
+    networks:
+      custom:
+        ipv4_address: 10.5.0.5
+    command: --home /data/node-d start --chain-id cytonic_52225-1
+    depends_on:
+      - node-a
+
+networks:
+  custom:
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.5.0.0/16
+          gateway: 10.5.0.1
