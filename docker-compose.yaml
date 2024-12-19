@@ -12,7 +12,7 @@ services:
     ports:
       - 8545:8545
       - 26656:26656
-      - 26660:26660
+      - 127.0.0.1:26660:26660
     command: --home /data/node-a start --chain-id $CHAIN_ID
   node-b:
     <<: *generic-node
@@ -21,7 +21,7 @@ services:
       - node-a
     ports:
       - 26657:26656
-      - 26661:26660
+      - 127.0.0.1:26661:26660
   node-c:
     <<: *generic-node
     command: --home /data/node-c start --chain-id $CHAIN_ID
@@ -29,7 +29,7 @@ services:
       - node-a
     ports:
       - 26658:26656
-      - 26662:26660
+      - 127.0.0.1:26662:26660
   node-d:
     <<: *generic-node
     command: --home /data/node-d start --chain-id $CHAIN_ID
@@ -37,4 +37,4 @@ services:
       - node-a
     ports:
       - 26659:26656
-      - 26663:26660
+      - 127.0.0.1:26663:26660
