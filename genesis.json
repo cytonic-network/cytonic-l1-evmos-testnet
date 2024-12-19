@@ -350,7 +350,7 @@
         "params": {
             "block": {
                 "max_bytes": "22020096",
-                "max_gas": "-1"
+                "max_gas": "30000000"
             },
             "evidence": {
                 "max_age_num_blocks": "100000",
