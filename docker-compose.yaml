@@ -9,41 +9,32 @@ x-generic-node: &generic-node
 services:
   node-a:
     <<: *generic-node
-    networks:
-      custom:
-        ipv4_address: 10.5.0.2
     ports:
       - 8545:8545
-    command: --home /data/node-a start --chain-id cytonic_52225-1
+      - 26656:26656
+      - 26660:26660
+    command: --home /data/node-a start --chain-id $CHAIN_ID
   node-b:
     <<: *generic-node
-    networks:
-      custom:
-        ipv4_address: 10.5.0.3
-    command: --home /data/node-b start --chain-id cytonic_52225-1
+    command: --home /data/node-b start --chain-id $CHAIN_ID
     depends_on:
       - node-a
+    ports:
+      - 26657:26656
+      - 26661:26660
   node-c:
     <<: *generic-node
-    networks:
-      custom:
-        ipv4_address: 10.5.0.4
-    command: --home /data/node-c start --chain-id cytonic_52225-1
+    command: --home /data/node-c start --chain-id $CHAIN_ID
     depends_on:
       - node-a
+    ports:
+      - 26658:26656
+      - 26662:26660
   node-d:
     <<: *generic-node
-    networks:
-      custom:
-        ipv4_address: 10.5.0.5
-    command: --home /data/node-d start --chain-id cytonic_52225-1
+    command: --home /data/node-d start --chain-id $CHAIN_ID
     depends_on:
       - node-a
-
-networks:
-  custom:
-    ipam:
-      driver: default
-      config:
-        - subnet: 10.5.0.0/16
-          gateway: 10.5.0.1
+    ports:
+      - 26659:26656
+      - 26663:26660
