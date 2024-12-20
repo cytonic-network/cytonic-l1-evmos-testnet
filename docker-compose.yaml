@@ -6,6 +6,13 @@ x-generic-node: &generic-node
   entrypoint: /entrypoint.sh
 
 services:
+  seed:
+    <<: *generic-node
+    command: --home /data/seed start --chain-id $CHAIN_ID
+    ports:
+      - 26000:26656
+    profiles:
+      - seed
   node-a:
     <<: *generic-node
     ports:
