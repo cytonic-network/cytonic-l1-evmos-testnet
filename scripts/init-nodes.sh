@@ -10,9 +10,8 @@ docker compose run --no-deps --rm node-b init node-b --chain-id $CHAIN_ID --home
 docker compose run --no-deps --rm node-c init node-c --chain-id $CHAIN_ID --home $CHAIN_HOME/node-c
 docker compose run --no-deps --rm node-d init node-d --chain-id $CHAIN_ID --home $CHAIN_HOME/node-d
 
-cp genesis.json data/chain/node-a/config
-
-
+cp sample-genesis.json data/chain/node-a/config
+mv data/chain/node-a/config/sample-genesis.json data/chain/node-a/config/genesis.json
 
 NODE_A_KEY=$(docker compose run --no-deps --rm node-a keys add validator-a --keyring-backend test --home $CHAIN_HOME/node-a --output json)
 NODE_B_KEY=$(docker compose run --no-deps --rm node-b keys add validator-b --keyring-backend test --home $CHAIN_HOME/node-b --output json)

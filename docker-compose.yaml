@@ -3,7 +3,6 @@ x-generic-node: &generic-node
   volumes:
     - ./data/chain:/data
     - ./entrypoints/node.sh:/entrypoint.sh
-    - ./genesis.json:/genesis.json
   entrypoint: /entrypoint.sh
 
 services:
