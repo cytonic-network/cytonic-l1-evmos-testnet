@@ -13,7 +13,8 @@ services:
       - 26656:26656
       - 127.0.0.1:26660:26660 # cometbft 
       - 127.0.0.1:1317:1317 # cosmos api
-    command: --home /data/node-a start --chain-id $CHAIN_ID
+      - 127.0.0.1:6065:6065 # evm rpc metrics
+    command: --home /data/node-a start --chain-id $CHAIN_ID --metrics
   node-b:
     <<: *generic-node
     command: --home /data/node-b start --chain-id $CHAIN_ID
