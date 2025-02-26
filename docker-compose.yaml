@@ -9,11 +9,12 @@ services:
   node-a:
     <<: *generic-node
     ports:
-      - 8545:8545
-      - 26656:26656
-      - 127.0.0.1:26660:26660 # cometbft 
+      - 8545:8545 # evm json rpc
+      - 26656:26656 # p2p
+      - 127.0.0.1:26660:26660 # cometbft metrics
       - 127.0.0.1:1317:1317 # cosmos api
       - 127.0.0.1:6065:6065 # evm rpc metrics
+      - 127.0.0.1:27000:26657 # tendermint rpc
     command: --home /data/node-a start --chain-id $CHAIN_ID --metrics
   node-b:
     <<: *generic-node
@@ -21,7 +22,7 @@ services:
     depends_on:
       - node-a
     ports:
-      - 26657:26656
+      - 26657:26656 # p2p
       - 127.0.0.1:26661:26660 # cometbft
   node-c:
     <<: *generic-node
@@ -29,7 +30,7 @@ services:
     depends_on:
       - node-a
     ports:
-      - 26658:26656
+      - 26658:26656 # p2p
       - 127.0.0.1:26662:26660 # cometbft
   node-d:
     <<: *generic-node
@@ -37,5 +38,5 @@ services:
     depends_on:
       - node-a
     ports:
-      - 26659:26656
+      - 26659:26656 # p2p
       - 127.0.0.1:26663:26660 # cometbft
